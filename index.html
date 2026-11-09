@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Агроэкологическая карта Пермского края</title>
+    <link rel="stylesheet" href="./resources/ol.css">
+    <link rel="stylesheet" href="resources/fontawesome-all.min.css">
+    <link rel="stylesheet" href="resources/photon-geocoder-autocomplete.min.css">
+    <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
+    <link rel="stylesheet" href="./resources/qgis2web.css">
+    <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            overflow: hidden;
+        }
+        .map-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #91A487;
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10);
+        }
+        #top-left-container {
+            top: 56px;
+            z-index: 10;
+            pointer-events: auto;
+        }
+        #top-right-container .layer-switcher {
+            margin-top: 56px !important;
+        }
+        #top-left-container .ol-zoom {
+            pointer-events: auto;
+            background-color: rgba(255, 255, 255, 0.88) !important;
+            border-radius: 4px;
+        }
+        #top-left-container .ol-zoom button {
+            pointer-events: auto;
+            cursor: pointer;
+            color: #0078A8 !important;
+            background-color: transparent !important;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+		#top-left-container .ol-zoom button:hover,
+		#top-left-container .ol-zoom button:focus-visible {
+		color: #626B3F !important;
+		background-color: #F3F7EF !important;
+		}
+        #top-left-container .ol-zoom button:active {
+            color: #52643D !important;
+            background-color: #E5EFE0  !important;
+        }
+        #bottom-right-container {
+            right: 3px;
+            bottom: 3px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+            max-width: calc(100vw - 6px);
+        }
+        #bottom-right-container .bottom-attribution,
+        #bottom-right-container .map-author {
+            position: relative !important;
+            top: auto !important;
+            right: auto !important;
+            bottom: auto !important;
+            left: auto !important;
+            float: none !important;
+            clear: none !important;
+            width: auto !important;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin: 0 !important;
+            padding: 2px 4px !important;
+            background: rgba(255, 255, 255, 0.92) !important;
+            color: #91A487 !important;
+            font-family: Arial, sans-serif;
+            font-size: 12px !important;
+            font-weight: normal;
+            line-height: 16px;
+            border: 0 !important;
+            border-radius: 3px !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+        }
+        #bottom-right-container .bottom-attribution ul {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+        #bottom-right-container .bottom-attribution a {
+            color: #91A487 !important;
+            text-decoration: none;
+        }
+
+        #bottom-right-container .bottom-attribution a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="map-header">Агроэкологическая карта Пермского края</div>
+    <div id="map">
+        <div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+            <div id="popup-content"></div>
+        </div>
+    </div>
+    <div class="map-author">Исполнитель: Южанинов Александр</div>
+
+    <script src="resources/qgis2web_expressions.js"></script>
+    <script src="./resources/functions.js"></script>
+    <script src="./resources/ol.js"></script>
+    <script src="./resources/ol-layerswitcher.js"></script>
+    <script src="resources/photon-geocoder-autocomplete.min.js"></script>
+    <script src="resources/olms.js"></script>
+    <script src="layers/_2.js"></script>
+    <script src="layers/_3.js"></script>
+    <script src="styles/_2_style.js"></script>
+    <script src="styles/_3_style.js"></script>
+    <script src="./layers/layers.js"></script>
+    <script src="./resources/Autolinker.min.js"></script>
+    <script src="./resources/qgis2web.js"></script>
+    <script>
+        const view = map.getView();
+        const size = map.getSize();
+        view.centerOn(view.getCenter(), size, [size[0] / 2, size[1] / 2 + 40]);
+    </script>
+    <script>
+        const bottomContainer = document.getElementById('bottom-right-container');
+        const author = document.querySelector('.map-author');
+        if (bottomContainer && author) {
+            bottomContainer.appendChild(author);
+        }
+    </script>
+</body>
+</html>

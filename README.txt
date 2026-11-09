@@ -9,7 +9,7 @@ The map works because all the required JavaScript libraries are included
 in the export. The application loads the GeoJSON layer data and their styles
 directly from the local files.
 
-## Publishing on a Website
+## Publishing on a Website.
 
 If you upload the entire folder to a web server, the map will work 
 immediately by opening the "index.html" file.
